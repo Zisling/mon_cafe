@@ -1,3 +1,4 @@
+import atexit
 import os
 import sqlite3 as sql
 
@@ -187,6 +188,7 @@ def main():
     print(repo.coffeeStands.find(1))
     repo.employees.insert(Employee(1, 'nir', 500, 1))
     print(repo.employees.find(1))
+    atexit.register(repo._close)
 
 if __name__ == '__main__':
     main()
