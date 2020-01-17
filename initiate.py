@@ -122,7 +122,7 @@ class _Activities:
 
     def insert(self, act):
         self._conn.execute("""
-        INSERT INTO Activities (id, description,price, quantity) VALUES (?, ?,?,?)
+        INSERT INTO Activities (product_id, quantity,activator_id, date) VALUES (?, ?,?,?)
         """, [act.product_id, act.quantity, act.activator_id, act.date])
 
 

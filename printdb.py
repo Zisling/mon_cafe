@@ -2,10 +2,10 @@ import sqlite3 as sql
 import os
 
 
-def print_table(name, cursor):
+def print_table(name, cursor, key_to_order='id'):
     cursor.execute("""
     SELECT * FROM {}
-    """.format(name))
+    ORDER BY {}""".format(name, key_to_order))
     listy = cursor.fetchall()
     print(name)
     if len(listy) > 0:
@@ -16,7 +16,7 @@ def print_table(name, cursor):
 dbcon = sql.connect('moncafe.db')
 with dbcon:
     c = dbcon.cursor()
-    print_table('Activities', c)
-    print_table('Employees', c)
+    print_table('Activities', c,'date')
+    print_table('Employees', c,'name')
     print_table('Products', c)
     print_table('Suppliers', c)
