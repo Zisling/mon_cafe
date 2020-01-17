@@ -20,7 +20,7 @@ class Supplier:
 
 
 class Product:
-    def __init__(self, p_id, description, price, quantity):
+    def __init__(self, p_id, description, price, quantity=0):
         self.id = p_id
         self.description = description
         self.price = price
@@ -178,17 +178,31 @@ class _Repository:
         """)
 
 
+def enter(entry, repo):
+    if entry[0] == 'C':
+        repo.coffeeStands.insert(CoffeeStand(entry[1], entry[2], entry[3]))
+    elif entry[0] == 'E':
+        repo.employees.insert(Employee(entry[1], entry[2], entry[3], entry[4]))
+    elif entry[0] == 'P':
+        repo.products.insert(Product(entry[1], entry[2], entry[3]))
+    elif entry[0] == 'S':
+        repo.suppliers.insert(Supplier(entry[1], entry[2], entry[3]))
+
+
 def main():
     databaseexisted = os.path.isfile('moncafe.db')
     if databaseexisted:
         os.remove('moncafe.db')
     repo = _Repository()
     repo.create_tables()
-    repo.coffeeStands.insert(CoffeeStand(1, '90', 2))
-    print(repo.coffeeStands.find(1))
-    repo.employees.insert(Employee(1, 'nir', 500, 1))
-    print(repo.employees.find(1))
+    f = open('config.txt', 'r')
+    for line in f:
+        entry = line.replace('\n', '')
+        entry = entry.split(', ')
+        enter(entry, repo)
+    f.close()
     atexit.register(repo._close)
+
 
 if __name__ == '__main__':
     main()

@@ -131,3 +131,6 @@ dmypy.json
 .pyre/
 
 /moncafe.db
+.idea/dataSources.local.xml
+.idea/dataSources.xml
+.idea/dataSources/
