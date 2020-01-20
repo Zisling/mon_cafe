@@ -24,28 +24,20 @@ def activities_is_not_empty(cursor):
 
 
 def employees_report(cursor):
-    print('Employees report')
     cursor.execute("""
-    SELECT name , salary , location , TOTAL(p_sum) FROM (SELECT e.id as id, e.name as name , e.salary as salary,
-    c.location as location FROM Employees as e 
+    SELECT name, salary , location , COALESCE(-1*SUM(a_sum) , 0) FROM (
+    SELECT e.id as id, e.name as name , e.salary as salary,c.location as location FROM Employees as e 
     JOIN Coffee_stands as c
-    ON e.coffee_stand = c.id)
-    JOIN (SELECT a.activator_id as a_id ,a.product_id as p_id,TOTAL(a.quantity) * -p.price as p_sum FROM Activities as a
-    , Products as p
-    WHERE a.quantity < 0 and p.id = a.product_id
-    GROUP BY a.product_id , a.activator_id)
-    ON id = a_id
+    ON e.coffee_stand = c.id) LEFT JOIN (SELECT activator_id , SUM(a.quantity)*price as a_sum FROM Activities as a JOIN Products as p
+    ON product_id = id
+    GROUP BY activator_id , product_id
+    )
+    ON activator_id = id
     GROUP BY id
+    ORDER BY name 
     """)
-    good_employees = cursor.fetchall()
-    cursor.execute("""
-    SELECT name , salary , location , 0 FROM Employees as e JOIN Coffee_stands
-    ON e.id NOT IN (SELECT activator_id FROM Activities)
-    GROUP BY e.id
-    """)
-    bad_employees = cursor.fetchall()
-    employees = good_employees + bad_employees
-    employees.sort()
+    print('Employees report')
+    employees = cursor.fetchall()
     for x in employees:
         print(x)
 
