@@ -52,3 +52,7 @@ class _Repository:
         coffee_stand INTEGER REFERENCES Coffee_stand(id)
         );
         """)
+
+    @property
+    def conn(self):
+        return self._conn

@@ -1,3 +1,6 @@
+import DTO
+import DAO
+import repository
 import sqlite3 as sql
 import os
 
@@ -65,7 +68,9 @@ def print_activities(cursor):
         print(x)
 
 
-dbcon = sql.connect('moncafe.db')
+# dbcon = sql.connect('moncafe.db')
+repo = repository._Repository()
+dbcon = repo.conn
 with dbcon:
     c = dbcon.cursor()
     print_table('Activities', c, 'date')

@@ -36,5 +36,4 @@ class Activities:
         self.activator_id = activator_id
         self.date = date
 
-
 # --------------------------------------------------------------------------------------

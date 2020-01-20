@@ -1,5 +1,6 @@
-import  DTO
+import DTO
 import sqlite3 as sql
+
 
 # DAO
 class _Employees:
@@ -82,6 +83,5 @@ class _Activities:
         self._conn.execute("""
         INSERT INTO Activities (product_id, quantity,activator_id, date) VALUES (?, ?,?,?)
         """, [act.product_id, act.quantity, act.activator_id, act.date])
-
 
 # --------------------------------------------------------------------------------------
