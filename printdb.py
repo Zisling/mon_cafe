@@ -60,15 +60,20 @@ def print_activities(cursor):
         print(x)
 
 
-# dbcon = sql.connect('moncafe.db')
-repo = repository._Repository()
-dbcon = repo.conn
-with dbcon:
-    c = dbcon.cursor()
-    print_table('Activities', c, 'date')
-    print_table('Employees', c, 'name')
-    print_table('Products', c)
-    print_table('Suppliers', c)
-    employees_report(c)
-    if activities_is_not_empty(c):
-        print_activities(c)
+def main():
+    # dbcon = sql.connect('moncafe.db')
+    repo = repository._Repository()
+    dbcon = repo.conn
+    with dbcon:
+        c = dbcon.cursor()
+        print_table('Activities', c, 'date')
+        print_table('Employees', c, 'name')
+        print_table('Products', c)
+        print_table('Suppliers', c)
+        employees_report(c)
+        if activities_is_not_empty(c):
+            print_activities(c)
+
+
+if __name__ == '__main__':
+    main()

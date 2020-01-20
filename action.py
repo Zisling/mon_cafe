@@ -1,4 +1,7 @@
 import sqlite3 as sql
+
+import printdb
+import repository
 import os
 
 
@@ -23,11 +26,18 @@ def update(entry, cursor):
             insert_update(entry, cursor)
 
 
-dbcon = sql.connect('moncafe.db')
-with dbcon:
-    c = dbcon.cursor()
-    f = open('action.txt', 'r')
-    for line in f:
-        entry = line.replace('\n', '')
-        entry = entry.split(', ')
-        update(entry, c)
+def main():
+    repo = repository._Repository()
+    dbcon = repo._conn
+    with dbcon:
+        c = dbcon.cursor()
+        f = open('action.txt', 'r')
+        for line in f:
+            entry = line.replace('\n', '')
+            entry = entry.split(', ')
+            update(entry, c)
+
+
+if __name__ == '__main__':
+    main()
+    printdb.main()
