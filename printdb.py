@@ -43,20 +43,20 @@ def employees_report(cursor):
 
 
 def print_activities(cursor):
-    print('Activities')
     cursor.execute("""
-    SELECT date , description, a.quantity , e.name , NULL FROM Activities as a ,Products as p , Employees as e
-    ON a.activator_id = e.id and p.id = a.product_id
-    """)
-    employees = cursor.fetchall()
-    cursor.execute("""
-        SELECT date , description, a.quantity ,NULL , s.name FROM Activities as a ,Products as p , Suppliers as s
-        ON a.activator_id = s.id and p.id = a.product_id
+    SELECT a.date , description, a.quantity , e_name , s_name FROM Activities as a LEFT JOIN (
+       Select table1_id, table2_id , e_name , s_name From 
+    (
+       Select id as table1_id, NULL as table2_id ,name as e_name, NULL as s_name FROM Employees
+       UNION ALL
+       Select NULL as table1_id, ID as id , NULL as e_name, name as s_name FROM Suppliers 
+    )) , Products as p
+    ON (table1_id = a.activator_id OR activator_id = table2_id) AND p.id = a.product_id
+    ORDER BY a.date
         """)
+    print('Activities')
     sup = cursor.fetchall()
-    to_print = sup+employees
-    to_print.sort()
-    for x in to_print:
+    for x in sup:
         print(x)
 
 
