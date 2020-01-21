@@ -1,6 +1,5 @@
 import sqlite3 as sql
 
-import printdb
 import repository
 import os
 
