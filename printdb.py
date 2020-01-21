@@ -39,7 +39,9 @@ def employees_report(cursor):
     print('Employees report')
     employees = cursor.fetchall()
     for x in employees:
-        print(x)
+        for y in x:
+            print(y, end=" ")
+        print()
 
 
 def print_activities(cursor):
