@@ -61,7 +61,7 @@ def print_activities(cursor):
         print(x)
 
 
-def main():
+def printdb():
     # dbcon = sql.connect('moncafe.db')
     repo = repository._Repository()
     dbcon = repo.conn
@@ -71,10 +71,12 @@ def main():
         print_table('Employees', c, 'name')
         print_table('Products', c)
         print_table('Suppliers', c)
+        print()
         employees_report(c)
         if activities_is_not_empty(c):
+            print()
             print_activities(c)
 
 
 if __name__ == '__main__':
-    main()
+    printdb()

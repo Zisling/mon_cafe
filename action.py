@@ -1,6 +1,7 @@
 import sqlite3 as sql
 
 import repository
+from printdb import printdb
 import os
 
 
@@ -39,4 +40,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-    os.system('python printdb.py')
+    printdb()
