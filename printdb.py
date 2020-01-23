@@ -10,7 +10,7 @@ def print_table(name, cursor, key_to_order='id'):
     SELECT * FROM {}
     ORDER BY {}""".format(name, key_to_order))
     listy = cursor.fetchall()
-    print(name)
+    print(name.replace('_', ' '))
     if len(listy) > 0:
         for item in listy:
             print(item)
@@ -68,6 +68,7 @@ def printdb():
     with dbcon:
         c = dbcon.cursor()
         print_table('Activities', c, 'date')
+        print_table('Coffee_stands', c, 'id')
         print_table('Employees', c, 'name')
         print_table('Products', c)
         print_table('Suppliers', c)
