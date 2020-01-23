@@ -1,5 +1,5 @@
 import sqlite3 as sql
-
+import sys
 import repository
 from printdb import printdb
 import os
@@ -26,12 +26,12 @@ def update(entry, cursor):
             insert_update(entry, cursor)
 
 
-def main():
+def main(text):
     repo = repository._Repository()
     dbcon = repo._conn
     with dbcon:
         c = dbcon.cursor()
-        f = open('action.txt', 'r')
+        f = open(text, 'r')
         for line in f:
             entry = line.replace('\n', '')
             entry = entry.split(', ')
@@ -39,5 +39,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main(str(sys.argv[1]))
     printdb()

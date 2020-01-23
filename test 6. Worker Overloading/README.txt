@@ -1,0 +1,1 @@
+This test checks loading a single worker with many sales

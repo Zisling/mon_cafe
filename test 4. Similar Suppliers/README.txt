@@ -1,0 +1,1 @@
+This test checks two suppliers supplying the same and one supplier supplying different products

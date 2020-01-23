@@ -1,5 +1,6 @@
 import atexit
 import os
+import sys
 import sqlite3 as sql
 import DTO
 import DAO
@@ -18,13 +19,13 @@ def enter(entry, repo):
         repo.suppliers.insert(DTO.Supplier(entry[1], entry[2], entry[3]))
 
 
-def main():
+def main(text):
     databaseexisted = os.path.isfile('moncafe.db')
     if databaseexisted:
         os.remove('moncafe.db')
     repo = _Repository()
     repo.create_tables()
-    f = open('config.txt', 'r')
+    f = open(text, 'r')
     for line in f:
         entry = line.replace('\n', '')
         entry = entry.split(', ')
@@ -34,4 +35,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main(str(sys.argv[1]))

@@ -1,0 +1,1 @@
+This test checks the edge cases of 2 identical workers (apart from id)
